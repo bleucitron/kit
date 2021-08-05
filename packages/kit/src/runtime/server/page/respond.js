@@ -1,18 +1,20 @@
 import { render_response } from './render.js';
 import { load_node } from './load_node.js';
-import { respond_with_error } from './respond_with_error.js';
+import { is_prerender_enabled, respond_with_error } from './respond_with_error.js';
 import { coalesce_to_error } from '../../utils.js';
 
 /**
  * @typedef {import('./types.js').Loaded} Loaded
  * @typedef {import('types/internal').SSRNode} SSRNode
+ * @typedef {import('types/internal').SSRRenderOptions} SSRRenderOptions
+ * @typedef {import('types/internal').SSRRenderState} SSRRenderState
  */
 
 /**
  * @param {{
  *   request: import('types/hooks').ServerRequest;
- *   options: import('types/internal').SSRRenderOptions;
- *   state: import('types/internal').SSRRenderState;
+ *   options: SSRRenderOptions;
+ *   state: SSRRenderState;
  *   $session: any;
  *   route: import('types/internal').SSRPage;
  * }} opts
@@ -99,6 +101,7 @@ export async function respond({ request, options, state, $session, route }) {
 						node,
 						$session,
 						context,
+						prerender_enabled: is_prerender_enabled(options, node, state),
 						is_leaf: i === nodes.length - 1,
 						is_error: false
 					});
@@ -152,6 +155,7 @@ export async function respond({ request, options, state, $session, route }) {
 									node: error_node,
 									$session,
 									context: node_loaded.context,
+									prerender_enabled: is_prerender_enabled(options, error_node, state),
 									is_leaf: false,
 									is_error: true,
 									status,
