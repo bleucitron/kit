@@ -1,5 +1,11 @@
 # @sveltejs/kit
 
+## 1.0.0-next.143
+
+### Patch Changes
+
+- c3c25ee0: [fix] take into account page-level options on error pages
+
 ## 1.0.0-next.142
 
 ### Patch Changes
