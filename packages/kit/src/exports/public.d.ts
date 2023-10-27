@@ -711,7 +711,7 @@ export interface LoadEvent<
 	 */
 	data: Data;
 	/**
-	 * If you need to set headers for the response, you can do so using the this method. This is useful if you want the page to be cached, for example:
+	 * If you need to set headers for the response, you can do so using this method. This is useful if you want the page to be cached, for example:
 	 *
 	 *	```js
 	 *	/// file: src/routes/blog/+page.js
